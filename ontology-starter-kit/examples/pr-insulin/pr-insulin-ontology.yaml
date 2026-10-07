@@ -1,0 +1,328 @@
+# =====================================================================
+#  PR INSULIN DISTRIBUTORS, INC.  |  BUSINESS ONTOLOGY  |  v3.0.0
+#  Fictional company. Every name, number, and record is invented for
+#  demonstration. Any resemblance to a real business is coincidental.
+#  Rules in this file are the company's internal policies. They are not
+#  regulations and they are not legal or clinical guidance.
+# =====================================================================
+#  For AI assistants: this file is the source of truth for PR Insulin
+#  Distributors' terms, structure, and rules. Read it before you answer
+#  any question about the company. Join the data files through the keys
+#  below. Apply every rule that fits the question. Cite rule IDs.
+#
+#  Types: each entity names its schema.org type (https://schema.org/)
+#  where one exists, so any tool or partner reads the same vocabulary.
+#  "company-defined" means schema.org has no fitting type.
+
+ontology:
+  company: PR Insulin Distributors, Inc.
+  short_name: PR Insulin
+  version: 3.0.0
+  updated: 2026-10-06
+  owner: Operations Excellence
+  vocabulary: https://schema.org/
+  summary: >-
+    PR Insulin Distributors delivers insulin, dialysis supplies, and other
+    pharmaceuticals and medical supplies to hospitals, dialysis centers,
+    pharmacies, clinics, and public health networks across Puerto Rico from
+    three distribution centers: Carolina, Ponce, and Mayagüez.
+
+data:
+  pr-insulin-sites.csv: One row per distribution center.
+  pr-insulin-routes.csv: Delivery routes and site-to-site transfer routes.
+  pr-insulin-customers.csv: One row per customer account.
+  pr-insulin-suppliers.csv: Suppliers and the port each one ships through.
+  pr-insulin-products.csv: One row per SKU.
+  pr-insulin-inventory.csv: One row per inventory lot, by site.
+  pr-insulin-orders.csv: Open order lines.
+  pr-insulin-contracts.csv: Supply agreements, emergency agreements, and government purchasing vehicles.
+  pr-insulin-opportunities.csv: Open sales opportunities for Q4 2026.
+
+# ---------------------------------------------------------------------
+#  ENTITIES, in five lanes
+# ---------------------------------------------------------------------
+lanes:
+
+  "01 Risk":
+    Warning zone:
+      schema_type: schema:AdministrativeArea
+      source: the hurricane warning in the question
+      meaning: >-
+        The regions a hurricane warning names. "South coast" means region S.
+        The company treats every site, port, and route inside the warning zone
+        as closed from 12 hours before forecast landfall until Operations clears it.
+      attributes: {regions: region codes, landfall: forecast landfall time (T-0)}
+    Region:
+      schema_type: schema:AdministrativeArea
+      source: region columns in pr-insulin-sites.csv and pr-insulin-customers.csv
+      codes: {MTR: Metro, N: North coast, E: East, S: South coast, C: Central mountains, W: West coast}
+    Route:
+      schema_type: company-defined
+      source: pr-insulin-routes.csv
+      key: route_id
+      attributes:
+        from_site: site the route starts at
+        serves: towns or the site it reaches
+        mtn: "Y = crosses the central mountains. N = coastal or flat."
+        transit_h: one-way driving hours
+    Port:
+      schema_type: schema:Place
+      source: port column in pr-insulin-suppliers.csv
+      codes: {SJU: San Juan (region MTR), PON: Ponce (region S), MAY: Mayagüez (region W)}
+
+  "02 Operations":
+    Site:
+      schema_type: schema:Place
+      source: pr-insulin-sites.csv
+      key: site_id
+      attributes:
+        region: Region code
+        cold_cap_plt / cold_used_plt: cold-room pallets, capacity and in use
+        vault_cap_plt / vault_used_plt: controlled-substance vault pallets, capacity and in use
+    License:
+      schema_type: schema:GovernmentPermit
+      source: lic_st column in pr-insulin-sites.csv
+      meaning: The site's controlled-substance distribution license.
+      codes:
+        10: Active. The site may receive, store, and ship controlled products.
+        40: Renewal pending. The site may store what it holds. It may not receive controlled products.
+        90: Suspended.
+    Backup power:
+      schema_type: company-defined
+      source: gen_h column in pr-insulin-sites.csv
+      meaning: Hours the site's generator fuel lasts at full load. Cold rooms and the vault alarm run on it.
+    Inventory lot:
+      schema_type: schema:SomeProducts
+      source: pr-insulin-inventory.csv
+      key: lot_id
+      attributes: {sku: Product, site_id: Site, qty: units, plt: pallets, supplier_lot: the supplier's lot number}
+
+  "03 Products":
+    Product:
+      schema_type: schema:Product
+      schema_subtypes: {RX: schema:Drug, SRX: schema:Drug}
+      source: pr-insulin-products.csv
+      key: sku
+      attributes:
+        line: "MSS medical-surgical | RX pharmaceutical | SRX controlled substance"
+        supplier_id: primary Supplier
+        alt_supplier_id: approved alternate Supplier
+        rop: network reorder point, in units
+    Storage class:
+      schema_type: schema:DefinedTerm
+      source: stor column in pr-insulin-products.csv
+      codes: {AMB: ambient, CLD: "cold chain, 2 to 8 °C. Insulin, epoetin, vaccines.", CTL: "controlled substance, vault only"}
+    Criticality:
+      schema_type: schema:DefinedTerm
+      source: crit column in pr-insulin-products.csv
+      codes:
+        L1: Life-sustaining. Insulin, dialysis supplies, anemia therapy, IV fluids.
+        L2: Essential.
+        L3: Routine.
+    Supplier:
+      schema_type: schema:Organization
+      source: pr-insulin-suppliers.csv
+      key: supplier_id
+      attributes: {port: Port, lead_d: lead time in days}
+
+  "04 Customers":
+    Customer:
+      schema_type: schema:Organization
+      schema_subtypes: {HOSP: schema:Hospital, DIAL: schema:MedicalClinic, PHARM: schema:Pharmacy, CLIN: schema:MedicalClinic, GOV: schema:GovernmentOrganization}
+      source: pr-insulin-customers.csv
+      key: account_id
+      attributes:
+        segment: "HOSP hospital | DIAL dialysis center | PHARM pharmacy | CLIN clinic | GOV public health network"
+        home_site: the Site that serves the customer
+        route: the Route its deliveries use
+        reg: "A active | L lapsed | N none. The customer's controlled-substance registration."
+    Order:
+      schema_type: schema:Order
+      source: pr-insulin-orders.csv
+      key: order_id
+      attributes: {account_id: Customer, sku: Product, qty: units, due: due date, site_id: shipping Site}
+    Contract:
+      schema_type: company-defined
+      source: pr-insulin-contracts.csv
+      key: contract_id
+      attributes:
+        type: "SUP supply agreement | EMG public emergency supply agreement | VEH government purchasing vehicle"
+        terms: SLA terms code
+        mvol_usd: average monthly volume billed under the contract
+    SLA terms:
+      schema_type: schema:DefinedTerm
+      source: terms column in pr-insulin-contracts.csv. The full text lives in Legal's contract files.
+      codes:
+        STD-H: >-
+          Hospital supply agreement. Late deliveries carry a penalty of 2% of
+          mvol_usd per day late, capped at 10%. A storm waives the penalty only
+          under Rule-05.
+        STD-D: >-
+          Dialysis supply agreement. Standing weekly order. No late-delivery
+          penalty. The company commits to deliver by the due date.
+        EMG-20: Public emergency supply agreement. Triggers Rule-04 during a warning.
+        VEH: Government purchasing vehicle. The buyer can order only before end_date.
+
+  "05 Revenue":
+    Opportunity:
+      schema_type: company-defined
+      source: pr-insulin-opportunities.csv
+      key: opp_id
+      attributes:
+        fcst: "Commit | Best Case | Pipeline. Set by the sales rep."
+        days_idle: days since the last logged customer contact
+        vehicle_id: the Contract vehicle a GOV deal closes under
+    Forecast:
+      schema_type: company-defined
+      meaning: The Q4 2026 number the company reports to its board.
+    Contract vehicle:
+      schema_type: company-defined
+      source: rows in pr-insulin-contracts.csv where type is VEH
+      key: contract_id, matched to Opportunity.vehicle_id
+
+# ---------------------------------------------------------------------
+#  RELATIONSHIPS
+# ---------------------------------------------------------------------
+relationships:
+  - Warning zone covers Region
+  - Region contains Site, Customer, and Port
+  - Route crosses Region and starts at Site
+  - Site holds License and runs on Backup power
+  - Inventory lot is stored at Site and is a lot of Product
+  - Product has a Storage class and a Criticality
+  - Product comes from Supplier, which ships through Port
+  - Order is for Product, placed by Customer, shipped from Site
+  - Customer is served by Site (home_site) and reached by Route
+  - Customer holds Contract, and Contract carries SLA terms
+  - Opportunity belongs to Customer, feeds Forecast, and closes under Contract vehicle (GOV only)
+
+# ---------------------------------------------------------------------
+#  TERMS
+# ---------------------------------------------------------------------
+terms:
+  T-0: Forecast landfall. Every storm deadline counts back from it.
+  L1 line: An order line whose SKU is L1.
+  Business continuity plan: >-
+    The timed list of actions for a hurricane warning, each tied to the rule
+    that requires it and counted back from T-0.
+  Rule-adjusted commit: >-
+    Every Commit deal closing this quarter, minus each deal that Rule-07,
+    Rule-08, or Rule-09 excludes.
+  Storm-adjusted commit: >-
+    Rule-adjusted commit, minus Commit deals for customers served by a site in
+    the warning zone that close within 30 days after landfall. Owner: CFO.
+  Reorder need: >-
+    A SKU needs reorder when network on-hand, minus open orders, minus stock
+    held under Rule-04, is below its rop.
+
+# ---------------------------------------------------------------------
+#  RULES. Company policy, each with an owner.
+# ---------------------------------------------------------------------
+rules:
+  - id: Rule-01
+    name: Life-critical first
+    applies_to: Order, Product, Criticality
+    when: a hurricane warning is in effect
+    then: L1 lines ship before every other line, from every site that serves the warning zone.
+    why: A dialysis patient cannot skip a treatment. A diabetic patient cannot skip insulin.
+    owner: VP Operations
+
+  - id: Rule-02
+    name: Insulin stays cold
+    applies_to: Site, Backup power, Inventory lot, Storage class
+    when: a site in the warning zone has less than 72 hours of generator fuel (gen_h < 72)
+    then: >-
+      Move its CLD lots, insulin first, and its CTL lots to a site with at
+      least 72 hours of fuel, no later than 24 hours before landfall.
+    why: >-
+      Insulin must stay at 2 to 8 °C. Grid outages after a hurricane last
+      longer than 72 hours. Cold rooms and the vault alarm fail when the fuel
+      runs out.
+    owner: Quality
+
+  - id: Rule-03
+    name: Licensed sites only
+    applies_to: Site, License, Product
+    when: controlled (CTL) stock moves, or a controlled order is delivered to a company site
+    then: The receiving site must have lic_st 10.
+    why: A site without an active license cannot receive controlled products.
+    owner: Compliance
+
+  - id: Rule-04
+    name: Emergency reserve
+    applies_to: Contract, Inventory lot, Criticality
+    when: a hurricane warning is in effect and an EMG-20 customer is served by a site in the warning zone
+    then: Hold 20% of that site's L1 stock, by SKU, for the EMG-20 customer. Do not allocate it to other orders.
+    why: The company's emergency agreement with the public health network.
+    owner: Public Sector Director
+
+  - id: Rule-05
+    name: Notice or pay
+    applies_to: Contract, SLA terms, Customer, Site
+    when: a hurricane warning names a region where an STD-H customer is located, or where its home_site is
+    then: >-
+      Send written force-majeure notice on that contract at least 36 hours
+      before landfall. Without the notice, STD-H late-delivery penalties stand.
+    why: The STD-H waiver clause requires it.
+    owner: Legal
+
+  - id: Rule-06
+    name: Mountain routes close
+    applies_to: Route, Order, Site
+    when: a hurricane warning is in effect
+    then: >-
+      No deliveries or transfers on routes with mtn = Y from 24 hours before
+      landfall until Operations clears them. Orders due after that time on a
+      mountain route ship before it.
+    why: Landslides and road closures in the central mountains.
+    owner: Logistics
+
+  - id: Rule-07
+    name: Stalled deal
+    applies_to: Opportunity
+    when: amount_usd >= 100000 AND days_idle > 21
+    then: Flag at risk. Exclude from rule-adjusted commit.
+    why: Large deals that go quiet for three weeks rarely close in the quarter.
+    owner: VP Sales
+
+  - id: Rule-08
+    name: Contract expires first
+    applies_to: Opportunity, Contract vehicle
+    when: the customer's segment is GOV AND close_date is after the vehicle's end_date
+    then: Move to next quarter. Exclude from rule-adjusted commit.
+    why: Public buyers cannot order on an expired vehicle. Renewals take 60 to 90 days.
+    owner: Public Sector Director
+
+  - id: Rule-09
+    name: No registration, no close
+    applies_to: Opportunity, Customer
+    when: prod_line is SRX AND the customer's reg is not A
+    then: Block the close. Exclude from rule-adjusted commit until the registration is active.
+    why: The company cannot ship controlled products to a customer without an active registration.
+    owner: Compliance
+
+answer_rules:
+  - "When a rule shapes the answer, cite its ID in brackets, for example [Rule-05]."
+  - "State deadlines as day and clock time, counted back from landfall."
+  - "Name each affected customer, site, contract, deal, supplier, and amount."
+  - "Use the company's terms. Round totals to one decimal in millions, for example $4.2M."
+
+changelog:
+  - version: 3.0.0
+    date: 2026-10-06
+    change: >-
+      Renamed the company to PR Insulin Distributors, Inc. and the data files
+      to pr-insulin-*.csv. Rule IDs now read Rule-01 to Rule-09. Rule-02
+      renamed "Insulin stays cold." Rule-06 now ships mountain-route orders
+      before the routes close. Added a schema.org type to every entity.
+    approved_by: Operations Excellence
+  - version: 2.0.0
+    date: 2026-10-05
+    change: >-
+      Added the Risk, Operations, Products, and Customers lanes. 19 entities,
+      9 rules. New storm rules; the pipeline rules moved to 07 to 09.
+    approved_by: Operations Excellence
+  - version: 1.0.0
+    date: 2026-10-05
+    change: First release. Sales pipeline domain. 10 terms, 3 rules.
+    approved_by: Revenue Operations

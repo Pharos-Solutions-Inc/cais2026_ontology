@@ -1,0 +1,4 @@
+site_id,site,town,region,lic_st,gen_h,cold_cap_plt,cold_used_plt,vault_cap_plt,vault_used_plt
+CAR,Carolina DC,Carolina,MTR,40,120,48,30,30,12
+PON,Ponce DC,Ponce,S,10,36,20,9,12,4
+MAY,Mayagüez DC,Mayagüez,W,10,96,16,4,10,3

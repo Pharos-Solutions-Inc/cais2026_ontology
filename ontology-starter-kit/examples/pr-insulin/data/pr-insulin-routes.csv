@@ -1,0 +1,13 @@
+route_id,from_site,serves,mtn,transit_h
+RT-PS,PON,"South coast west: Ponce, Juana Díaz, Yauco, Peñuelas, Coamo",N,1.0
+RT-PE,PON,"South coast east: Santa Isabel, Guayama",N,1.5
+RT-PC,PON,"Central: Utuado, Jayuya, Adjuntas, Orocovis, Barranquitas, Aibonito",Y,3.0
+RT-PM,PON,Site transfer: Mayagüez DC via PR-2,N,1.5
+RT-PK,PON,Site transfer: Carolina DC via PR-52,Y,2.5
+RT-CM,CAR,"Metro: San Juan, Carolina, Bayamón",N,1.0
+RT-CN,CAR,"North coast: Dorado, Arecibo",N,1.5
+RT-CE,CAR,"East: Fajardo, Humacao, Caguas",N,1.5
+RT-CC,CAR,Central via PR-52,Y,2.5
+RT-MW,MAY,"West coast: Mayagüez, Aguadilla, Cabo Rojo, San Germán",N,1.0
+RT-MP,MAY,Site transfer: Ponce DC via PR-2,N,1.5
+RT-MK,MAY,Site transfer: Carolina DC via PR-22,N,2.5

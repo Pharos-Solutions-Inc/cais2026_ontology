@@ -1,0 +1,23 @@
+opp_id,account_id,account,prod_line,stage,fcst,amount_usd,close_date,days_idle,owner,vehicle_id
+OPP-1004,C-201,Hospital Bahía Norte,MSS,5-PO Pending,Commit,700000,2026-12-10,5,J. Rivera,
+OPP-1007,C-301,Hospital Puesta del Sol,RX,4-Negotiate,Commit,450000,2026-11-20,9,M. Ortiz,
+OPP-1009,C-210,Red de Salud Municipal Norte,MSS,5-PO Pending,Commit,380000,2026-12-05,8,L. Santana,VEH-02
+OPP-1012,C-101,Hospital Santa Brígida,MSS,5-PO Pending,Commit,300000,2026-11-13,6,A. Colón,
+OPP-1015,C-131,Clínica Valle Sur,RX,4-Negotiate,Commit,200000,2026-11-18,3,A. Colón,
+OPP-1018,C-104,Hospital Monte Claro,MSS,4-Negotiate,Commit,250000,2026-12-18,10,A. Colón,
+OPP-1021,C-205,Botica Central Carolina,SRX,5-PO Pending,Commit,290000,2026-11-25,7,J. Rivera,
+OPP-1027,C-303,Farmacia Cabo Rojo,RX,4-Negotiate,Commit,230000,2026-12-01,12,M. Ortiz,
+OPP-1030,C-302,Hospital Bahía Oeste,MSS,4-Negotiate,Commit,480000,2026-12-12,28,M. Ortiz,
+OPP-1033,C-203,Hospital Paseo Norte,RX,4-Negotiate,Commit,300000,2026-12-15,35,J. Rivera,
+OPP-1036,C-121,Farmacia Sol de Yauco,SRX,5-PO Pending,Commit,310000,2026-11-10,4,A. Colón,
+OPP-1039,C-211,Consorcio de Salud del Este,MSS,5-PO Pending,Commit,310000,2026-12-15,6,L. Santana,VEH-03
+OPP-1041,C-202,Hospital Los Corales,MSS,3-Proposal,Best Case,420000,2026-12-20,11,J. Rivera,
+OPP-1043,C-102,Hospital Valle Verde,RX,3-Proposal,Best Case,260000,2026-12-08,24,A. Colón,
+OPP-1045,C-207,Farmacia Bayamón Norte,MSS,3-Proposal,Best Case,95000,2026-11-30,30,J. Rivera,
+OPP-1047,C-306,Red de Salud Municipal Oeste,MSS,3-Proposal,Best Case,350000,2026-12-18,5,M. Ortiz,VEH-01
+OPP-1049,C-212,Centro Renal Metro,MSS,2-Qualify,Pipeline,180000,2026-12-22,14,J. Rivera,
+OPP-1051,C-116,Costa Renal Ponce,MSS,2-Qualify,Pipeline,150000,2026-12-29,7,A. Colón,
+OPP-1053,C-124,Farmacia La Montaña,SRX,2-Qualify,Pipeline,120000,2026-12-30,9,A. Colón,
+OPP-1055,C-204,Hospital Arecibo Costa,RX,3-Proposal,Best Case,310000,2026-12-11,6,J. Rivera,
+OPP-1057,C-209,Clínica Humacao Salud,MSS,2-Qualify,Pipeline,90000,2026-12-31,3,J. Rivera,
+OPP-1059,C-305,Centro Renal Mayagüez,MSS,3-Proposal,Best Case,200000,2026-12-04,10,M. Ortiz,

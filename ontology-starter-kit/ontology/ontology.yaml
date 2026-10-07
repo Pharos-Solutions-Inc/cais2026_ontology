@@ -1,0 +1,82 @@
+# =====================================================================
+#  BUSINESS ONTOLOGY  |  one domain, ten terms, three rules
+#  Starter template. Replace everything in < >.
+# =====================================================================
+#  Faster: run the ontology interview (Claude Code: /ontology-interview,
+#  Codex: "run the ontology interview"), or paste prompts/03-interview.md
+#  into Claude, ChatGPT, or Copilot.
+#
+#  For AI assistants: this file is the source of truth for our terms,
+#  structure, and rules. Apply every rule that fits. Cite rule IDs.
+#
+#  Types: give each entity its schema.org type (https://schema.org/),
+#  for example schema:Organization, schema:Product, schema:Order,
+#  schema:Place. Write company-defined when no type fits.
+
+ontology:
+  company: <your company>
+  domain: <one domain, for example order fulfillment, claims, or the sales pipeline>
+  version: 0.0.0
+  updated: <yyyy-mm-dd>
+  owner: <team that approves changes>
+  vocabulary: https://schema.org/
+  summary: <two sentences on what the business does, for whom, and from where>
+
+data:
+  <file, system, or table>: <what one row means>
+
+entities:
+  <Entity name>:
+    schema_type: <schema:Type, or company-defined>
+    source: <file or table>
+    key: <id column>
+    attributes:
+      <column>: <meaning, with every code spelled out, for example "A active | L lapsed">
+
+relationships:
+  - <Entity> <verb> <Entity>, for example "Order is placed by Customer"
+
+terms:            # ten terms, the way your people actually use them
+  <term 1>: <definition>
+  <term 2>: <definition>
+  <term 3>: <definition>
+  <term 4>: <definition>
+  <term 5>: <definition>
+  <term 6>: <definition>
+  <term 7>: <definition>
+  <term 8>: <definition>
+  <term 9>: <definition>
+  <term 10>: <definition>
+
+rules:            # three judgment calls your best people make without thinking
+  - id: Rule-01
+    name: <short name>
+    applies_to: <Entity, Entity>
+    when: <condition, written so anyone can test it against the data>
+    then: <what to do, or what to exclude>
+    why: <the business reason>
+    owner: <role that owns the rule>
+  - id: Rule-02
+    name: <short name>
+    applies_to: <Entity>
+    when: <condition>
+    then: <action>
+    why: <reason>
+    owner: <role>
+  - id: Rule-03
+    name: <short name>
+    applies_to: <Entity>
+    when: <condition>
+    then: <action>
+    why: <reason>
+    owner: <role>
+
+answer_rules:
+  - "When a rule shapes the answer, cite its ID in brackets, for example [Rule-02]."
+  - "Use our terms."
+
+changelog:
+  - version: 0.0.0
+    date: <yyyy-mm-dd>
+    change: Template. Your first release is 1.0.0.
+    approved_by: <name or role>

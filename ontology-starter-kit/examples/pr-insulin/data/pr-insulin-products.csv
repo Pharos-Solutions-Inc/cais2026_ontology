@@ -1,0 +1,17 @@
+sku,product,line,stor,crit,supplier_id,alt_supplier_id,rop
+D-100,"Dialysate concentrate, case",MSS,AMB,L1,S01,S06,300
+D-110,"Dialyzer, high-flux, box of 24",MSS,AMB,L1,S01,S06,100
+D-120,"Bloodline set, box of 24",MSS,AMB,L1,S01,S06,120
+H-200,"Heparin 1,000 u/mL, box",RX,AMB,L1,S02,,100
+E-400,"Epoetin alfa vials, box",RX,CLD,L1,S04,S07,80
+I-300,"Insulin glargine pens, box",RX,CLD,L1,S04,S07,100
+I-310,"Insulin regular vials, box",RX,CLD,L1,S02,S07,60
+V-500,"Sodium chloride 0.9% IV 1 L, case",MSS,AMB,L1,S03,,400
+A-600,"Amoxicillin 500 mg, case",RX,AMB,L2,S02,,100
+K-610,"Ceftriaxone 1 g vials, box",RX,AMB,L2,S02,,80
+T-700,"Tetanus-diphtheria vaccine, box",RX,CLD,L2,S04,S07,40
+W-810,"Wound dressing kit, case",MSS,AMB,L2,S03,,150
+M-900,"Morphine sulfate 10 mg/mL, box",SRX,CTL,L2,S05,,40
+Y-910,"Hydromorphone 2 mg/mL, box",SRX,CTL,L2,S05,,30
+L-920,"Lorazepam 2 mg/mL, box",SRX,CTL,L2,S05,,30
+G-800,"Nitrile exam gloves, case",MSS,AMB,L3,S03,,500

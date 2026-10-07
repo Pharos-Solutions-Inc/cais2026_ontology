@@ -1,0 +1,103 @@
+# Panadería Solerno | business ontology | v1.0.0
+# Fictional company. Reference output for Prompt 1. Your run will differ in wording.
+# Lines marked ASSUMED are the AI's guesses. The owner confirms or fixes each one.
+
+ontology:
+  company: Panadería Solerno
+  domain: daily baking and catering
+  version: 1.0.0
+  updated: 2026-10-10
+  owner: Operations
+  vocabulary: https://schema.org/
+  summary: >-
+    Three bakeries in San Juan, Bayamón, and Caguas that bake fresh bread and
+    pastries every morning and fill catering orders for offices and parties.
+
+data:
+  POS sales: one row per item sold, by store and hour
+  POS catering orders: one row per catering order
+
+entities:
+  Store:
+    schema_type: schema:Bakery
+    meaning: one bakery location
+    attributes: {store_id: "SJU | BAY | CAG", opens: "6:00 a.m."}   # ASSUMED opening time
+    source: POS
+  Product:
+    schema_type: schema:Product
+    meaning: an item we bake and sell
+    attributes: {sku: product code, category: "BREAD | PASTRY", shelf_life_h: hours before it becomes day-old}
+    source: POS
+  Bake batch:
+    schema_type: company-defined
+    meaning: one morning bake of one product at one store
+    attributes: {store_id: Store, sku: Product, qty: units, ready_by: time}
+    source: production sheet   # ASSUMED
+  Catering order:
+    schema_type: schema:Order
+    meaning: an order for an office or a party, picked up or delivered
+    attributes: {customer: name, store_id: Store, units: total items, pickup: date and time, deposit: "Y | N"}
+    source: POS catering orders
+  Ingredient:
+    schema_type: schema:Product
+    meaning: a raw material
+    attributes: {name: "flour, butter, sugar", storage: "AMB ambient | COLD refrigerated"}
+  Supplier:
+    schema_type: schema:Organization
+    meaning: a company that sells us ingredients
+    attributes: {ingredients: what it supplies, lead_d: days from order to delivery}   # ASSUMED lead times tracked
+  Day-old stock:
+    schema_type: company-defined
+    meaning: bread or pastry past its shelf life that has not sold
+
+relationships:
+  - Store bakes Bake batch
+  - Bake batch makes Product
+  - Product uses Ingredient
+  - Ingredient comes from Supplier
+  - Catering order is filled by Store
+  - Catering order includes Product
+  - Product becomes Day-old stock
+
+terms:
+  pan sobao: soft, slightly sweet loaf. Our top seller.
+  mallorca: sweet spiral roll with powdered sugar.
+  quesito: puff pastry with sweet cream cheese.
+  day-old: bread past its shelf life. Sold at a discount or donated.
+  sold out: the shelf is empty before noon. Lost sales, not a success.
+
+rules:
+  - id: Rule-01
+    name: Saturday sobao
+    applies_to: Bake batch, Product
+    when: the day is Saturday and the product is pan sobao
+    then: bake twice the weekday batch, ready by 6:00 a.m.   # ASSUMED 2x
+    why: we sell out by 10 a.m. on Saturdays
+    owner: Store manager
+  - id: Rule-02
+    name: Catering notice
+    applies_to: Catering order
+    when: units > 100 AND pickup is less than 48 hours away   # ASSUMED thresholds
+    then: the store manager approves before we accept, and the customer pays a 50% deposit   # ASSUMED deposit
+    why: big last-minute orders empty the morning shelves
+    owner: Catering lead
+  - id: Rule-03
+    name: Butter stays cold
+    applies_to: Ingredient, Supplier
+    when: a butter delivery arrives
+    then: check the temperature. Reject it above 40 °F.   # ASSUMED limit
+    why: warm butter ruins the dough
+    owner: Production lead
+  - id: Rule-04
+    name: Day-old by 3
+    applies_to: Product, Day-old stock
+    when: bread is unsold at 3:00 p.m. on its bake day   # ASSUMED time
+    then: move it to day-old at 50% off. Donate what is left at closing.   # ASSUMED discount
+    why: we throw away day-old bread
+    owner: Store manager
+
+changelog:
+  - version: 1.0.0
+    date: 2026-10-10
+    change: First release from Prompt 1. Lines marked ASSUMED need the owner's review.
+    approved_by: TODO

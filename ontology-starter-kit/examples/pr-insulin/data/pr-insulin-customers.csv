@@ -1,0 +1,43 @@
+account_id,account,segment,town,region,home_site,route,reg
+C-101,Hospital Santa Brígida,HOSP,Ponce,S,PON,RT-PS,A
+C-102,Hospital Valle Verde,HOSP,Juana Díaz,S,PON,RT-PS,A
+C-103,Hospital Brisas de Guayama,HOSP,Guayama,S,PON,RT-PE,A
+C-104,Hospital Monte Claro,HOSP,Aibonito,C,PON,RT-PC,A
+C-105,Hospital Lomas de Utuado,HOSP,Utuado,C,PON,RT-PC,A
+C-106,Hospital Pico Alto,HOSP,Barranquitas,C,PON,RT-PC,A
+C-111,Cordillera Renal Utuado,DIAL,Utuado,C,PON,RT-PC,N
+C-112,Cordillera Renal Jayuya,DIAL,Jayuya,C,PON,RT-PC,N
+C-113,Cordillera Renal Adjuntas,DIAL,Adjuntas,C,PON,RT-PC,N
+C-114,Cordillera Renal Orocovis,DIAL,Orocovis,C,PON,RT-PC,N
+C-115,Cordillera Renal Barranquitas,DIAL,Barranquitas,C,PON,RT-PC,N
+C-116,Costa Renal Ponce,DIAL,Ponce,S,PON,RT-PS,N
+C-117,Costa Renal Yauco,DIAL,Yauco,S,PON,RT-PS,N
+C-118,Costa Renal Santa Isabel,DIAL,Santa Isabel,S,PON,RT-PE,N
+C-119,Costa Renal Guayama,DIAL,Guayama,S,PON,RT-PE,N
+C-121,Farmacia Sol de Yauco,PHARM,Yauco,S,PON,RT-PS,L
+C-122,Farmacia Las Delicias,PHARM,Ponce,S,PON,RT-PS,A
+C-123,Farmacia Coamo Centro,PHARM,Coamo,S,PON,RT-PS,A
+C-124,Farmacia La Montaña,PHARM,Adjuntas,C,PON,RT-PC,N
+C-131,Clínica Valle Sur,CLIN,Juana Díaz,S,PON,RT-PS,A
+C-132,Clínica Peñuelas Salud,CLIN,Peñuelas,S,PON,RT-PS,N
+C-133,Clínica Jayuya Familiar,CLIN,Jayuya,C,PON,RT-PC,N
+C-141,Red Municipal de Salud del Sur,GOV,Ponce,S,PON,RT-PS,A
+C-201,Hospital Bahía Norte,HOSP,Carolina,MTR,CAR,RT-CM,A
+C-202,Hospital Los Corales,HOSP,Fajardo,E,CAR,RT-CE,A
+C-203,Hospital Paseo Norte,HOSP,San Juan,MTR,CAR,RT-CM,A
+C-204,Hospital Arecibo Costa,HOSP,Arecibo,N,CAR,RT-CN,A
+C-205,Botica Central Carolina,PHARM,Carolina,MTR,CAR,RT-CM,A
+C-206,Farmacia Isla Verde,PHARM,Carolina,MTR,CAR,RT-CM,A
+C-207,Farmacia Bayamón Norte,PHARM,Bayamón,MTR,CAR,RT-CM,L
+C-208,Clínica Dorado Familiar,CLIN,Dorado,N,CAR,RT-CN,N
+C-209,Clínica Humacao Salud,CLIN,Humacao,E,CAR,RT-CE,N
+C-210,Red de Salud Municipal Norte,GOV,Arecibo,N,CAR,RT-CN,A
+C-211,Consorcio de Salud del Este,GOV,Humacao,E,CAR,RT-CE,A
+C-212,Centro Renal Metro,DIAL,Bayamón,MTR,CAR,RT-CM,N
+C-213,Centro Renal Valle de Caguas,DIAL,Caguas,E,CAR,RT-CE,N
+C-301,Hospital Puesta del Sol,HOSP,Mayagüez,W,MAY,RT-MW,A
+C-302,Hospital Bahía Oeste,HOSP,Aguadilla,W,MAY,RT-MW,A
+C-303,Farmacia Cabo Rojo,PHARM,Cabo Rojo,W,MAY,RT-MW,A
+C-304,Clínica San Germán Salud,CLIN,San Germán,W,MAY,RT-MW,N
+C-305,Centro Renal Mayagüez,DIAL,Mayagüez,W,MAY,RT-MW,N
+C-306,Red de Salud Municipal Oeste,GOV,Mayagüez,W,MAY,RT-MW,A

@@ -1,0 +1,52 @@
+%% PR Insulin Distributors, Inc. business ontology v3.0.0. Fictional company.
+%% Paste into any Mermaid viewer (Claude artifact, GitHub, mermaid.live) to see the map.
+flowchart LR
+  subgraph RISK["01 Risk"]
+    WZ["Warning zone"]:::ent
+    REG["Region"]:::ent
+    RTE["Route<br/>Rule-06"]:::rule
+    PRT["Port"]:::ent
+  end
+  subgraph OPS["02 Operations"]
+    SITE["Site"]:::ent
+    LIC["License<br/>Rule-03"]:::rule
+    LOT["Inventory lot"]:::ent
+    PWR["Backup power<br/>Rule-02"]:::rule
+  end
+  subgraph PRD["03 Products"]
+    PROD["Product"]:::ent
+    CRIT["Criticality<br/>Rule-01"]:::rule
+    STOR["Storage class"]:::ent
+    SUP["Supplier"]:::ent
+  end
+  subgraph CUS["04 Customers"]
+    CUST["Customer<br/>Rule-09"]:::rule
+    ORD["Order"]:::ent
+    CON["Contract<br/>Rule-04"]:::rule
+    SLA["SLA terms<br/>Rule-05"]:::rule
+  end
+  subgraph REV["05 Revenue"]
+    OPP["Opportunity<br/>Rule-07"]:::rule
+    VEH["Contract vehicle<br/>Rule-08"]:::rule
+    FC["Forecast"]:::ent
+  end
+  WZ -- covers --> REG
+  RTE -- crosses --> REG
+  REG -- contains --> SITE
+  SITE -- holds --> LIC
+  SITE -- runs on --> PWR
+  LOT -- stored at --> SITE
+  LOT -- lot of --> PROD
+  PROD -- kept as --> STOR
+  PROD -- rated --> CRIT
+  PROD -- comes from --> SUP
+  SUP -- ships via --> PRT
+  ORD -- for --> PROD
+  ORD -- placed by --> CUST
+  CUST -- holds --> CON
+  CON -- carries --> SLA
+  OPP -- belongs to --> CUST
+  OPP -- closes under --> VEH
+  OPP -- feeds --> FC
+  classDef ent fill:#FFFFFF,stroke:#0094C4,color:#02254C
+  classDef rule fill:#FFF6D6,stroke:#FFC000,color:#02254C

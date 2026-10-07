@@ -1,0 +1,26 @@
+%% Panadería Solerno ontology v1.0.0. Fictional company. Reference output for Prompt 2.
+flowchart LR
+  subgraph STORES["Stores and baking"]
+    ST["Store"]:::ent
+    BB["Bake batch<br/>Rule-01"]:::rule
+  end
+  subgraph PRODUCTS["Products"]
+    PR["Product<br/>Rule-04"]:::rule
+    DO["Day-old stock"]:::ent
+  end
+  subgraph SUPPLY["Supply"]
+    IN["Ingredient<br/>Rule-03"]:::rule
+    SU["Supplier"]:::ent
+  end
+  subgraph SALES["Catering"]
+    CO["Catering order<br/>Rule-02"]:::rule
+  end
+  ST -- bakes --> BB
+  BB -- makes --> PR
+  PR -- uses --> IN
+  IN -- comes from --> SU
+  CO -- filled by --> ST
+  CO -- includes --> PR
+  PR -- becomes --> DO
+  classDef ent fill:#FFFFFF,stroke:#0094C4,color:#02254C
+  classDef rule fill:#FFF6D6,stroke:#FFC000,color:#02254C
